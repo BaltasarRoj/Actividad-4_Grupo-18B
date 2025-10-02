@@ -4,18 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Negocio;
-using Dominio;
 
 namespace TP_Web_Equipo_18_B
 {
-    public partial class _Default : Page
-    {   
-        public List <Articulo> listaArticulo{ get; set; }
+    public partial class ArticuloSeleccionado : System.Web.UI.Page
+    {
         protected void Page_Load(object sender, EventArgs e)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            listaArticulo = negocio.listarConSP();
+
         }
     }
 }
