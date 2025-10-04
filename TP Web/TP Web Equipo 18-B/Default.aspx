@@ -13,13 +13,15 @@
                         <div class="card-body">
                           <h5 class="card-title"><%#Eval("nombre") %></h5>
                           <p class="card-text"><%#Eval("descripcion") %></p>
-                          <a href="ArticuloSeleccionado.aspx?id=<%#Eval("id") %>">Seleccionar</a>
-                          <asp:Button ID="btnSeleccionar" runat="server" Text="Seleccionar" OnClick="btnSeleccionar_Click" CommandArgument='<%# Eval("id") %>' CommandName="ArtSelectArgument" />
+<%--                          <a href="FormularioPaso3.aspx?id=<%#Eval("id") %>">Seleccionar</a>--%>
+<%--                         <asp:Button ID="btnSeleccionar" runat="server" Text="Seleccionar" OnClick="btnSeleccionar_Click" CommandArgument='<%# Eval("id") %>' CommandName="ArtSelectArgument" />--%>
+                         <asp:Button ID="btnSeleccionar" runat="server" Text="Seleccionar" CssClass="btn btn-primary" CommandArgument='<%# Eval("id") %>' OnClick="btnSeleccionar_Click" />
                         </div>
                       </div>
                     </div>
-                </ItemTemplate>                    
+                </ItemTemplate>                
             </asp:Repeater>
         </div>
     </main>
 </asp:Content>
+

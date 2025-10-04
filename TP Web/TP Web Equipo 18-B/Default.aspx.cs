@@ -15,10 +15,6 @@ namespace TP_Web_Equipo_18_B
         public List<Articulo> listaArticulo { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["VoucherValido"] == null || (bool)Session["VoucherValido"] == false)
-            //{
-            //    Response.Redirect("Voucher.aspx");
-            //}
             ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulo = negocio.listar();
             if (!IsPostBack)
@@ -29,7 +25,11 @@ namespace TP_Web_Equipo_18_B
         }
         protected void btnSeleccionar_Click(object sender, EventArgs e)
         {
-            string id = ((Button)sender).CommandArgument;
+            Button btn = (Button)sender;            
+            string idArticulo = btn.CommandArgument;// Tomamos el ID del articulo desde el CommandArgument
+            string cod_voucher = (string)Session["cod_voucher"];
+            Response.Redirect("FormularioPaso3.aspx?id=" + idArticulo);
         }
+
     }
 }
