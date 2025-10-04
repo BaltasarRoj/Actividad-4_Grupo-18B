@@ -18,6 +18,7 @@
             </Columns>
             
         </asp:GridView>
+
          <%--  Listar usando foreach para crear un contenedor dinamico segun la cantidad de elementos de la BD 
         <div class="row row-cols-1 row-cols-md-3 g-4">
 

@@ -16,15 +16,13 @@ namespace Negocio
             
             List <Articulo>lista = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
-            
+
             try
             {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, M.Descripcion AS Marca, C.Descripcion AS Tipo, A.Descripcion, A.Precio, I.ImagenUrl AS Imagen,A.IdCategoria,A.IdMarca FROM ARTICULOS A LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
+                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, M.Descripcion AS Marca, C.Descripcion AS Tipo, A.Descripcion, A.Precio, MIN(I.ImagenUrl) AS Imagen, A.IdCategoria, A.IdMarca FROM ARTICULOS A LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria GROUP BY A.Id, A.Codigo, A.Nombre, M.Descripcion, C.Descripcion, A.Descripcion, A.Precio, A.IdCategoria, A.IdMarca");                    
                 datos.ejecutarLectura();
-
                 while (datos.Lector.Read())
                 {
-
                     Articulo aux = new Articulo();
                     aux.id = (int)datos.Lector["Id"];
                     aux.codigoArticulo = (string)datos.Lector["Codigo"];
@@ -58,7 +56,7 @@ namespace Negocio
                 datos.cerrarConexion();    
             }
         }
-
+/*
         public List<Articulo> listarConSP() //AGREGAR LOS PARAMETROS PARA PODER FILTRAR UNA LISTA POR PARAMETROS VER VIDEO Listar con Stored Procedure, min 5:32
         {
             List<Articulo> lista = new List<Articulo>();
@@ -66,8 +64,8 @@ namespace Negocio
 
             try
             {
-                //datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, M.Descripcion AS Marca, C.Descripcion AS Tipo, A.Descripcion, A.Precio, I.ImagenUrl AS Imagen,A.IdCategoria,A.IdMarca FROM ARTICULOS A LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
-                datos.setearProcedimiento("storedListar");
+                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, M.Descripcion AS Marca, C.Descripcion AS Tipo, A.Descripcion, A.Precio, I.ImagenUrl AS Imagen,A.IdCategoria,A.IdMarca FROM ARTICULOS A LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
+                //datos.setearProcedimiento("storedListar");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -106,7 +104,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
+*/
         public List<Articulo> listarUnaSolaImagen()
         {
             List<Articulo> lista = new List<Articulo>();

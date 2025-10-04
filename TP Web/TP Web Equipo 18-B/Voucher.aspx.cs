@@ -33,6 +33,7 @@ namespace TP_Web_Equipo_18_B
             else if (condicion == 0)
             {
                 lblMensaje.Text = "Voucher ingresado con éxito.";
+                Response.Redirect("Default.aspx");
             }
         }
     }
