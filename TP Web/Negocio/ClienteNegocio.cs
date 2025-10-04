@@ -47,6 +47,44 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public Cliente ExisteCliente(string DNI)
+        {
+            Cliente aux = new Cliente();
+            aux.Nombre = "";
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("select Id,Documento,Nombre,Apellido,Email,Direccion,Ciudad,CP from Clientes WHERE Documento = @DNI");
+                datos.setearParametro("@DNI", DNI);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+
+                    aux.Id = (int)datos.Lector["Id"];
+                    aux.Documento = (string)datos.Lector["Documento"];
+                    aux.Nombre = (string)datos.Lector["Nombre"];
+                    aux.Apellido = (string)datos.Lector["Apellido"];
+                    aux.Email = (string)datos.Lector["Email"];
+                    aux.Direccion = (string)datos.Lector["Direccion"];
+                    aux.Ciudad = (string)datos.Lector["Ciudad"];
+                    aux.CodPostal = (int)datos.Lector["CP"];
+
+                }
+
+                return aux;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
         public void AgregarCliente(Cliente nuevo) {
             AccesoDatos datos = new AccesoDatos();
             try

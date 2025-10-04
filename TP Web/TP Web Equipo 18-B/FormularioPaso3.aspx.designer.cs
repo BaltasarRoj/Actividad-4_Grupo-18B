@@ -24,6 +24,15 @@ namespace TP_Web_Equipo_18_B
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
+        /// rfvNombre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvNombre;
+
+        /// <summary>
         /// txtApellido control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace TP_Web_Equipo_18_B
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtApellido;
+
+        /// <summary>
+        /// rfvApellido control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvApellido;
 
         /// <summary>
         /// txtDni control.
@@ -42,6 +60,33 @@ namespace TP_Web_Equipo_18_B
         protected global::System.Web.UI.WebControls.TextBox txtDni;
 
         /// <summary>
+        /// rfvDni control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDni;
+
+        /// <summary>
+        /// lblMensajeUsuYaExiste control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMensajeUsuYaExiste;
+
+        /// <summary>
+        /// btnEstoyRegistrado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEstoyRegistrado;
+
+        /// <summary>
         /// txtEmail control.
         /// </summary>
         /// <remarks>
@@ -49,6 +94,15 @@ namespace TP_Web_Equipo_18_B
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
+
+        /// <summary>
+        /// rfvEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvEmail;
 
         /// <summary>
         /// txtDireccion control.
@@ -60,6 +114,15 @@ namespace TP_Web_Equipo_18_B
         protected global::System.Web.UI.WebControls.TextBox txtDireccion;
 
         /// <summary>
+        /// rfvDireccion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvDireccion;
+
+        /// <summary>
         /// txtCiudad control.
         /// </summary>
         /// <remarks>
@@ -69,6 +132,15 @@ namespace TP_Web_Equipo_18_B
         protected global::System.Web.UI.WebControls.TextBox txtCiudad;
 
         /// <summary>
+        /// rfvCiudad control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCiudad;
+
+        /// <summary>
         /// txtCP control.
         /// </summary>
         /// <remarks>
@@ -76,6 +148,15 @@ namespace TP_Web_Equipo_18_B
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtCP;
+
+        /// <summary>
+        /// rfvCP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvCP;
 
         /// <summary>
         /// btnParticipar control.
