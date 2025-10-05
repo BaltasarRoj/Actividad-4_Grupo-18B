@@ -15,7 +15,15 @@ namespace Dominio
         public string Email { get; set; }
         public string Direccion { get; set; }
         public string Ciudad { get; set; }
-        public int CodPostal { get; set; }
-     
+        private int CodPostal;
+
+        public int codPostal { 
+            get { return CodPostal;}
+            
+            set { if (value != 0 )
+                CodPostal = value;       
+             }
+        }
+            
     }
 }
