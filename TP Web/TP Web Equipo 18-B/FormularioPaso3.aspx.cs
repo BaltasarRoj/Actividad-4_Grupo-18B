@@ -19,83 +19,35 @@ namespace TP_Web_Equipo_18_B
             string codVoucher = Request.QueryString["voucher"];
 
         }
-
+        protected void btnEstoyRegistrado_Click(object sender, EventArgs e)
+        {
+            CargarCliente();
+        }
         protected void btnParticipar_Click(object sender, EventArgs e)
         {
-            Cliente cliente = new Cliente();
-            ClienteNegocio negocio = new ClienteNegocio();
-            try
-            {
-                if (Validacion.ValidacionVacio(txtDni) ||
-                    Validacion.ValidacionVacio(txtNombre) ||
-                    Validacion.ValidacionVacio(txtApellido) ||
-                    Validacion.ValidacionVacio(txtEmail) ||
-                    Validacion.ValidacionVacio(txtDireccion) ||
-                    Validacion.ValidacionVacio(txtCiudad) ||
-                    Validacion.ValidacionVacio(txtCP))
-                {
-                    Session.Add("ERROR", "tienes que completar todos los campos");
-                    Response.Redirect("ERROR.aspx");
-                }
-                else {
-                    cliente.Documento = txtDni.Text;
-                    cliente.Nombre = txtNombre.Text;
-                    cliente.Apellido = txtApellido.Text;
-                    cliente.Email = txtEmail.Text;
-                    cliente.Direccion = txtDireccion.Text;
-                    cliente.Ciudad = txtCiudad.Text;
-                    cliente.codPostal = int.Parse(txtCP.Text);
-
-                    negocio.AgregarCliente(cliente);
-                }
-                    
-            }
-
-
-
-            catch (Exception)
-            {
-                throw;
-            }
+            
         }
 
-        protected void txtDni_TextChanged(object sender, EventArgs e)
+
+        private void CargarCliente()
         {
-            string dni = txtDni.Text;
-
-            if (string.IsNullOrWhiteSpace(dni))
+            Cliente aux = null;
+            ClienteNegocio clienteNegocio = new ClienteNegocio();
+            if (!string.IsNullOrEmpty(txtDni.Text))
             {
-                LimpiarCamposCliente();
-                return;
+                aux = clienteNegocio.ExisteCliente(txtDni.Text);
             }
-
-            ClienteNegocio negocio = new ClienteNegocio();
-            Cliente cliente = negocio.ObtenerPorDocumento(dni);
-
-            if (cliente == null)
+            if (aux != null && !string.IsNullOrEmpty(aux.Nombre))
             {
-                LimpiarCamposCliente();
-                return;
+                txtNombre.Text = aux.Nombre;
+                txtApellido.Text = aux.Apellido;
+                txtCiudad.Text = aux.Ciudad;
+                txtCP.Text = aux.CodPostal.ToString();
+                txtDireccion.Text = aux.Direccion;
+                txtEmail.Text = aux.Email;
+                txtCiudad.Text = aux.Ciudad;
+
             }
-
-            txtNombre.Text = cliente.Nombre;
-            txtApellido.Text = cliente.Apellido;
-            txtEmail.Text = cliente.Email;
-            txtDireccion.Text = cliente.Direccion;
-            txtCiudad.Text = cliente.Ciudad;
-            txtCP.Text = cliente.codPostal.ToString();
         }
-
-        private void LimpiarCamposCliente()
-        {
-            txtNombre.Text = "";
-            txtApellido.Text = "";
-            txtEmail.Text = "";
-            txtDireccion.Text = "";
-            txtCiudad.Text = "";
-            txtCP.Text = "";
-        }
-
-
     }
 }

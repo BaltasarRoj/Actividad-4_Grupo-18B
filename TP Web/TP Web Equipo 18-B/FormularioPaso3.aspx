@@ -2,58 +2,80 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
-    <script>    
-        function ValidarForm(form) {
-            form.classList.add('was-validated');
-            return form.checkValidity();
-        }
-    </script>
-
-
-
     <h1>INGRESA TUS DATOS</h1>
 
     <div class="row g-3">
-        <div class=" col-md-4">
-            <asp:TextBox ID="txtDni" ClientIDMode="Static" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtDni_TextChanged" placeholder="DNI" aria-label="DNI" runat="server" required="required" />
-            <div class="invalid-feedback">Ingresá un DNI válido.</div>
-        </div>
-        <div class="row g-3">
-            <div class="col-3">
-                <asp:TextBox ID="txtNombre" ClientIDMode="Static" CssClass="form-control" placeholder="Nombre" aria-label="Nombre" runat="server" required="required" />
-                <div class="invalid-feedback">El nombre es obligatorio.</div>
-            </div>
-        </div>
+        <!-- Nombre -->
         <div class="col-3">
-            <asp:TextBox ID="txtApellido" ClientIDMode="Static" CssClass="form-control" placeholder="Apellido" aria-label="Apellido" runat="server" required="required" />
-            <div class="invalid-feedback">El apellido es obligatorio.</div>
+            <asp:TextBox ID="txtNombre" CssClass="form-control" placeholder="Nombre" runat="server" />
+            <asp:RequiredFieldValidator ID="rfvNombre" runat="server" 
+                ControlToValidate="txtNombre" ErrorMessage="El nombre es obligatorio." Display="Dynamic" CssClass="text-danger" />
         </div>
+
+        <!-- Apellido -->
+        <div class="col-3">
+            <asp:TextBox ID="txtApellido" CssClass="form-control" placeholder="Apellido" runat="server" />
+            <asp:RequiredFieldValidator ID="rfvApellido" runat="server"
+                ControlToValidate="txtApellido" ErrorMessage="El apellido es obligatorio." Display="Dynamic" CssClass="text-danger" />
+        </div>
+
+        <!-- DNI -->
         <div class="col-md-4">
-            <asp:TextBox ID="txtEmail" ClientIDMode="Static" CssClass="form-control" placeholder="Email" aria-label="Email" runat="server" TextMode="Email" required="required" />
-            <div class="invalid-feedback">Ingresá un email válido.</div>
+            <asp:TextBox ID="txtDni" CssClass="form-control" placeholder="DNI" runat="server" />
+            <asp:RequiredFieldValidator ID="rfvDni" runat="server"
+                ControlToValidate="txtDni" ErrorMessage="El DNI es obligatorio." Display="Dynamic" CssClass="text-danger" />
+       
+            <asp:Label ID="lblMensajeUsuYaExiste" runat="server" Text="Ingrese su DNI para verificar si esta registrado."></asp:Label>
         </div>
+
+        <!-- Botón Ya estoy registrado -->
+        <div class="col-3 d-flex align-items-end">
+            <asp:Button ID="btnEstoyRegistrado" runat="server" 
+                Text="Ya estoy registrado" 
+                CausesValidation="false" 
+                OnClick="btnEstoyRegistrado_Click"
+                CssClass="btn btn-secondary" />
+        </div>
+
+        <!-- Email -->
+        <div class="col-md-4">
+            <asp:TextBox ID="txtEmail" CssClass="form-control" placeholder="Email" runat="server" TextMode="Email" />
+            <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
+                ControlToValidate="txtEmail" ErrorMessage="El email es obligatorio." Display="Dynamic" CssClass="text-danger" />
+        </div>
+
+        <!-- Dirección -->
         <div class="col-8">
-            <label for="txtDireccion" class="form-label">Direccion</label>
-            <asp:TextBox ID="txtDireccion" ClientIDMode="Static" CssClass="form-control" placeholder="Direcion" aria-label="Direccion" runat="server" required="required" />
-            <div class="invalid-feedback">La dirección es obligatoria.</div>
+            <asp:TextBox ID="txtDireccion" CssClass="form-control" placeholder="Dirección" runat="server" />
+            <asp:RequiredFieldValidator ID="rfvDireccion" runat="server"
+                ControlToValidate="txtDireccion" ErrorMessage="La dirección es obligatoria." Display="Dynamic" CssClass="text-danger" />
         </div>
+
+        <!-- Ciudad -->
         <div class="col-md-6">
-            <label for="txtCiudad" class="form-label">Ciudad</label>
-            <asp:TextBox ID="txtCiudad" ClientIDMode="Static" CssClass="form-control" placeholder="Ciudad" aria-label="Ciudad" runat="server" required="required" />
-            <div class="invalid-feedback">La ciudad es obligatoria.</div>
+            <asp:TextBox ID="txtCiudad" CssClass="form-control" placeholder="Ciudad" runat="server" />
+            <asp:RequiredFieldValidator ID="rfvCiudad" runat="server"
+                ControlToValidate="txtCiudad" ErrorMessage="La ciudad es obligatoria." Display="Dynamic" CssClass="text-danger" />
         </div>
+
+        <!-- Código Postal -->
         <div class="col-md-2">
-            <label for="txtCP" class="form-label">C.P</label>
-            <asp:TextBox ID="txtCP" ClientIDMode="Static" CssClass="form-control" placeholder="C.P" aria-label="CP" runat="server" required="required" />
-            <div class="invalid-feedback">Ingresá el código postal.</div>
+            <asp:TextBox ID="txtCP" CssClass="form-control" placeholder="C.P" runat="server" />
+            <asp:RequiredFieldValidator ID="rfvCP" runat="server"
+                ControlToValidate="txtCP" ErrorMessage="El código postal es obligatorio." Display="Dynamic" CssClass="text-danger" />
+            <asp:RangeValidator 
+ErrorMessage="El valor es incorrecto" 
+MaximumValue="9999" 
+MinimumValue="1000" 
+ControlToValidate="txtCP" 
+runat="server" />
         </div>
+
+        <!-- Botón Participar -->
         <div class="col-12">
-            <asp:Button Text="Participar!" OnClientClick="return ValidarForm(this.form);" CssClass="btn btn-primary" ID="btnParticipar" OnClick="btnParticipar_Click" runat="server" />
+            <asp:Button ID="btnParticipar" Text="Participar!" runat="server" CssClass="btn btn-primary" OnClick="btnParticipar_Click" />
         </div>
+
     </div>
+
 </asp:Content>
-
-
-
-
-

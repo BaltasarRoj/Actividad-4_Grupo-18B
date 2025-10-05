@@ -30,6 +30,30 @@ namespace TP_Web_Equipo_18_B
             string cod_voucher = (string)Session["cod_voucher"];
             Response.Redirect("FormularioPaso3.aspx?id=" + idArticulo);
         }
+        protected void repRepetidor_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Articulo articulo = (Articulo)e.Item.DataItem;
+                Repeater repImagenes = (Repeater)e.Item.FindControl("repImagenes");
+                Panel pnlControles = (Panel)e.Item.FindControl("pnlControles");
+
+                if (articulo.Imagenes != null && articulo.Imagenes.Count > 0)
+                {
+                    repImagenes.DataSource = articulo.Imagenes;
+                    repImagenes.DataBind();
+
+                    // Mostrar controles solo si hay más de una imagen
+                    pnlControles.Visible = articulo.Imagenes.Count > 1;
+                }
+                else
+                {
+                    repImagenes.DataSource = new List<string> { "https://via.placeholder.com/150" };
+                    repImagenes.DataBind();
+                    pnlControles.Visible = false;
+                }
+            }
+        }
 
     }
 }

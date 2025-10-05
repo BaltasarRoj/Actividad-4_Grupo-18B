@@ -11,155 +11,82 @@ namespace Negocio
 {
     public class ArticuloNegocio
     {
-
-        public List<Articulo> listar() { 
-            
-            List <Articulo>lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, M.Descripcion AS Marca, C.Descripcion AS Tipo, A.Descripcion, A.Precio, MIN(I.ImagenUrl) AS Imagen, A.IdCategoria, A.IdMarca FROM ARTICULOS A LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria GROUP BY A.Id, A.Codigo, A.Nombre, M.Descripcion, C.Descripcion, A.Descripcion, A.Precio, A.IdCategoria, A.IdMarca");                    
-                datos.ejecutarLectura();
-                while (datos.Lector.Read())
-                {
-                    Articulo aux = new Articulo();
-                    aux.id = (int)datos.Lector["Id"];
-                    aux.codigoArticulo = (string)datos.Lector["Codigo"];
-                    aux.nombre = (string)datos.Lector["Nombre"];
-                    
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = (string)datos.Lector["Marca"];
-                    aux.tipo = new Categoria();
-                    aux.tipo.Id = (int)datos.Lector["IdCategoria"];
-                    aux.tipo.Descripcion = (string)datos.Lector["Tipo"];
-                    
-                    if (!(datos.Lector["Descripcion"] is DBNull))
-                    aux.descripcion = (string)datos.Lector["Descripcion"];
-                    aux.precio = (decimal)datos.Lector["Precio"];
-                    
-                    if (!(datos.Lector["Imagen"] is DBNull))
-                    aux.UrlImagen = (string)datos.Lector["Imagen"];
-
-                    lista.Add(aux);
-                }
-
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally 
-            {
-                datos.cerrarConexion();    
-            }
-        }
-/*
-        public List<Articulo> listarConSP() //AGREGAR LOS PARAMETROS PARA PODER FILTRAR UNA LISTA POR PARAMETROS VER VIDEO Listar con Stored Procedure, min 5:32
+        public List<Articulo> listar()
         {
             List<Articulo> lista = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-                datos.setearConsulta("SELECT A.Id, A.Codigo, A.Nombre, M.Descripcion AS Marca, C.Descripcion AS Tipo, A.Descripcion, A.Precio, I.ImagenUrl AS Imagen,A.IdCategoria,A.IdMarca FROM ARTICULOS A LEFT JOIN IMAGENES I ON I.IdArticulo = A.Id JOIN MARCAS M ON M.Id = A.IdMarca JOIN CATEGORIAS C ON C.Id = A.IdCategoria");
-                //datos.setearProcedimiento("storedListar");
-                datos.ejecutarLectura();
-
-                while (datos.Lector.Read())
-                {
-
-                    Articulo aux = new Articulo();
-                    aux.id = (int)datos.Lector["Id"];
-                    aux.codigoArticulo = (string)datos.Lector["Codigo"];
-                    aux.nombre = (string)datos.Lector["Nombre"];
-
-                    aux.Marca = new Marca();
-                    aux.Marca.Id = (int)datos.Lector["IdMarca"];
-                    aux.Marca.Descripcion = (string)datos.Lector["Marca"];
-                    aux.tipo = new Categoria();
-                    aux.tipo.Id = (int)datos.Lector["IdCategoria"];
-                    aux.tipo.Descripcion = (string)datos.Lector["Tipo"];
-
-                    if (!(datos.Lector["Descripcion"] is DBNull))
-                        aux.descripcion = (string)datos.Lector["Descripcion"];
-                    aux.precio = (decimal)datos.Lector["Precio"];
-
-                    if (!(datos.Lector["Imagen"] is DBNull))
-                        aux.UrlImagen = (string)datos.Lector["Imagen"];
-
-                    lista.Add(aux);
-                }
-
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-        }
-*/
-        public List<Articulo> listarUnaSolaImagen()
-        {
-            List<Articulo> lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
+            Dictionary<int, Articulo> articulosDict = new Dictionary<int, Articulo>();
 
             try
             {
                 datos.setearConsulta(@"
-            SELECT A.Id, A.Codigo, A.Nombre, 
-                   M.Descripcion AS Marca, 
-                   C.Descripcion AS Tipo, 
-                   A.Descripcion, 
-                   A.Precio, 
-                   (SELECT TOP 1 I.ImagenUrl 
-                    FROM IMAGENES I 
-                    WHERE I.IdArticulo = A.Id) AS Imagen, 
-                   A.IdCategoria, 
-                   A.IdMarca
-            FROM ARTICULOS A
-            JOIN MARCAS M ON M.Id = A.IdMarca
-            JOIN CATEGORIAS C ON C.Id = A.IdCategoria
-        ");
+                    SELECT 
+                        A.Id, 
+                        A.Codigo, 
+                        A.Nombre, 
+                        A.Descripcion, 
+                        A.Precio, 
+                        A.IdMarca,        
+                        A.IdCategoria,    
+                        M.Descripcion as Marca, 
+                        C.Descripcion as Categoria, 
+                        I.ImagenUrl 
+                    FROM ARTICULOS A 
+                    LEFT JOIN MARCAS M ON A.IdMarca = M.Id 
+                    LEFT JOIN CATEGORIAS C ON A.IdCategoria = C.Id 
+                    LEFT JOIN IMAGENES I ON A.Id = I.IdArticulo 
+                    ORDER BY A.Id");
 
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Articulo aux = new Articulo();
-                    aux.id = (int)datos.Lector["Id"];
-                    aux.codigoArticulo = (string)datos.Lector["Codigo"];
-                    aux.nombre = (string)datos.Lector["Nombre"];
+                    int articuloId = (int)datos.Lector["Id"];
 
-                    aux.Marca = new Marca
+                    // Solo procesar si tiene imagen
+                    if (!(datos.Lector["ImagenUrl"] is DBNull))
                     {
-                        Id = (int)datos.Lector["IdMarca"],
-                        Descripcion = (string)datos.Lector["Marca"]
-                    };
+                        string imagenUrl = (string)datos.Lector["ImagenUrl"];
 
-                    aux.tipo = new Categoria
-                    {
-                        Id = (int)datos.Lector["IdCategoria"],
-                        Descripcion = (string)datos.Lector["Tipo"]
-                    };
+                        if (!articulosDict.ContainsKey(articuloId))
+                        {
+                            // NUEVO ARTÍCULO
+                            Articulo aux = new Articulo();
+                            aux.id = articuloId;
+                            aux.codigoArticulo = (string)datos.Lector["Codigo"];
+                            aux.nombre = (string)datos.Lector["Nombre"];
 
-                    if (!(datos.Lector["Descripcion"] is DBNull))
-                        aux.descripcion = (string)datos.Lector["Descripcion"];
+                            aux.Marca = new Marca();
+                            aux.Marca.Id = (int)datos.Lector["IdMarca"];
+                            aux.Marca.Descripcion = (string)datos.Lector["Marca"];
 
-                    aux.precio = (decimal)datos.Lector["Precio"];
+                            aux.tipo = new Categoria();
+                            aux.tipo.Id = (int)datos.Lector["IdCategoria"];
+                            aux.tipo.Descripcion = (string)datos.Lector["Categoria"];
 
-                    if (!(datos.Lector["Imagen"] is DBNull))
-                        aux.UrlImagen = (string)datos.Lector["Imagen"];
+                            if (!(datos.Lector["Descripcion"] is DBNull))
+                                aux.descripcion = (string)datos.Lector["Descripcion"];
 
-                    lista.Add(aux);
+                            aux.precio = (decimal)datos.Lector["Precio"];
+                            aux.Imagenes = new List<string>();
+                            aux.UrlImagen = imagenUrl;
+                            aux.Imagenes.Add(imagenUrl);
+
+                            articulosDict[articuloId] = aux;
+                        }
+                        else
+                        {
+                            // ARTÍCULO EXISTENTE - AGREGAR IMAGEN ADICIONAL
+                            Articulo articuloExistente = articulosDict[articuloId];
+                            if (!articuloExistente.Imagenes.Contains(imagenUrl))
+                            {
+                                articuloExistente.Imagenes.Add(imagenUrl);
+                            }
+                        }
+                    }
                 }
-
+                
+                lista = articulosDict.Values.ToList();
                 return lista;
             }
             catch (Exception ex)
@@ -171,7 +98,6 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
         public void agregarArticulo(Articulo nuevo) {
 
             AccesoDatos datos = new AccesoDatos();
@@ -197,9 +123,6 @@ namespace Negocio
             finally {
                 datos.cerrarConexion();
             }
-
-
-
         }
 
         public void modificarArticulo(Articulo articulo, string urlVieja, string urlNueva)
