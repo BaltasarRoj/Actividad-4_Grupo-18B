@@ -10,8 +10,9 @@
     </script>
 
 
-
+    <br />
     <h1>INGRESA TUS DATOS</h1>
+    <br />
 
     <div class="row g-3">
         <div class=" col-md-4">

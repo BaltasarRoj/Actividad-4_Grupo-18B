@@ -27,7 +27,11 @@
 <%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TP_Web_Equipo_18_B._Default" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-  <h1>Aplicacion WEB - Catalogo de Articulos</h1>
+    <br />
+    <br />
+  <h1 style="text-align:center";>Aplicacion WEB - Catalogo de Articulos</h1>
+    <br />
+    <br />
    <main>
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <asp:Repeater ID="repRepetidor" runat="server" OnItemDataBound="repRepetidor_ItemDataBound">
@@ -74,7 +78,7 @@
             </asp:Repeater>
         </div>
     </main>
-
+    <br />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </asp:Content>
 

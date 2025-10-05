@@ -55,7 +55,7 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
-            <footer>
+            <footer style="text-align:center;">
                 <p>&copy; <%: DateTime.Now.Year %> - Grupo 18B - Aplicacion WEB ASP.NET</p>
             </footer>
         </div>
