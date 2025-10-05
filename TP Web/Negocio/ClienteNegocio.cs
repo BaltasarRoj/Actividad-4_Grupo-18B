@@ -1,14 +1,52 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dominio;
+
+
 
 namespace Negocio
 {
     public class ClienteNegocio
     {
+        public Cliente ObtenerPorDocumento(string documento)
+        {
+            Cliente cli = new Cliente();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearConsulta("select top 1 Documento,Nombre,Apellido,Email,Direccion,Ciudad,CP from Clientes where Documento = @doc");
+                datos.setearParametro("@doc", documento);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    cli.Documento = (string)datos.Lector["Documento"];
+                    cli.Nombre = (string)datos.Lector["Nombre"];
+                    cli.Apellido = (string)datos.Lector["Apellido"];
+                    cli.Email = (string)datos.Lector["Email"];
+                    cli.Direccion = (string)datos.Lector["Direccion"];
+                    cli.Ciudad = (string)datos.Lector["Ciudad"];
+                    cli.codPostal = (int)datos.Lector["CP"];
+
+                }
+                   return cli;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
         public List<Cliente> listar()
         {
 
@@ -31,7 +69,7 @@ namespace Negocio
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Direccion = (string)datos.Lector["Direccion"];
                     aux.Ciudad = (string)datos.Lector["Ciudad"];
-                    aux.CodPostal = (int)datos.Lector["CP"];
+                    aux.codPostal = (int)datos.Lector["CP"];
 
                     lista.Add(aux);
                 }
@@ -69,7 +107,7 @@ namespace Negocio
                     aux.Email = (string)datos.Lector["Email"];
                     aux.Direccion = (string)datos.Lector["Direccion"];
                     aux.Ciudad = (string)datos.Lector["Ciudad"];
-                    aux.CodPostal = (int)datos.Lector["CP"];
+                    aux.codPostal = (int)datos.Lector["CP"];
 
                 }
 
@@ -89,14 +127,14 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("insert into Clientes (Documento,Nombre,Apellido,Email,Direccion,Ciudad,CP) values (@Documento,@Nombre,@Apellido,@Email,@Direccion,@Ciudad,@CP");
-                datos.setearParametro("@Codigo", nuevo.Documento);
+                datos.setearConsulta("insert into Clientes (Documento,Nombre,Apellido,Email,Direccion,Ciudad,CP) values (@Documento,@Nombre,@Apellido,@Email,@Direccion,@Ciudad,@cp)");
+                datos.setearParametro("@Documento", nuevo.Documento);
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Apellido", nuevo.Apellido);
                 datos.setearParametro("@Email", nuevo.Email);
                 datos.setearParametro("@Direccion", nuevo.Direccion);
                 datos.setearParametro("@Ciudad", nuevo.Ciudad);
-                datos.setearParametro("@CP", nuevo.CodPostal);
+                datos.setearParametro("@cp", nuevo.codPostal);
 
                 datos.ejecutarAccion();
 
@@ -110,6 +148,11 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
+        }
+
+        public bool validarDocumento()
+        {
+            throw new NotImplementedException();
         }
     }
 }
