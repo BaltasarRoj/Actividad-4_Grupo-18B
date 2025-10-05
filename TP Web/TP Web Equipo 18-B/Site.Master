@@ -6,7 +6,7 @@
 <head runat="server">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - My ASP.NET Application</title>
+    <title><%: Page.Title %> - Compu House</title>
     
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
  
@@ -33,7 +33,7 @@
             </Scripts>
         </asp:ScriptManager>
 
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <%--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
             <div class="container">
                 <a class="navbar-brand" runat="server" href="~/">Aplicacion WEB</a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
@@ -44,13 +44,17 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Voucher">Voucher</a></li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/">Catalogo</a></li>
-<%--                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Listar">Listar</a></li>              --%>
-<%--                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>            --%>                        
+                      <li class="nav-item"><a class="nav-link" runat="server" href="~/Listar">Listar</a></li>              
+                       <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>                                    
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/FormularioPaso3">Formulario</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Exito">Página de Éxito</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Home">Inicio</a></li>
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>--%>
+
+
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>

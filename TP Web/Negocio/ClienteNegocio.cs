@@ -85,6 +85,33 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public bool ClienteRegistrado(string DNI)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                // Consulta para verificar si existe al menos un registro con ese DNI
+                datos.setearConsulta("SELECT COUNT(1) FROM Clientes WHERE Documento = @DNI");
+                datos.setearParametro("@DNI", DNI);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int cantidad = (int)datos.Lector[0];
+                    return cantidad > 0; // true si existe, false si no
+                }
+
+                return false; // Por seguridad, si no se pudo leer nada
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
         public Cliente ExisteCliente(string DNI)
         {

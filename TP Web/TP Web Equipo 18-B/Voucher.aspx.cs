@@ -19,8 +19,8 @@ namespace TP_Web_Equipo_18_B
         {
             VoucherNegocio voucherNegocio = new VoucherNegocio();
 
-            string cod_voucher = txtVoucher.Text;
-            int condicion = voucherNegocio.VoucherFueCanjeado(cod_voucher);
+            string codVoucher = txtVoucher.Text;
+            int condicion = voucherNegocio.VoucherFueCanjeado(codVoucher);
 
             if (condicion == -1)
             {
@@ -33,7 +33,7 @@ namespace TP_Web_Equipo_18_B
             else if (condicion == 0)
             {
                 lblMensaje.Text = "Voucher ingresado con éxito.";
-                Response.Redirect("Default.aspx", true);
+                Response.Redirect("Default.aspx?voucher=" + codVoucher);
                 return;
             }
         }

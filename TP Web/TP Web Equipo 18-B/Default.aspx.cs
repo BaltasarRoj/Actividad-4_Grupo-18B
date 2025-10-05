@@ -12,6 +12,8 @@ namespace TP_Web_Equipo_18_B
     public partial class _Default : Page
     {
 
+
+
         public List<Articulo> listaArticulo { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,8 +29,9 @@ namespace TP_Web_Equipo_18_B
         {
             Button btn = (Button)sender;            
             string idArticulo = btn.CommandArgument;// Tomamos el ID del articulo desde el CommandArgument
+            string codVoucher = Request.QueryString["voucher"];
             string cod_voucher = (string)Session["cod_voucher"];
-            Response.Redirect("FormularioPaso3.aspx?id=" + idArticulo);
+            Response.Redirect("FormularioPaso3.aspx?voucher=" + codVoucher + "&id=" + idArticulo);
         }
         protected void repRepetidor_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {

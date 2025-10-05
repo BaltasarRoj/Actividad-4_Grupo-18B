@@ -7,9 +7,9 @@
             <br />
         <br />
     <asp:TextBox ID="txtVoucher" runat="server"></asp:TextBox>
-            <asp:Button ID="btnSiguiente" runat="server" OnClick="btnSiguiente_Click" Text="Siguiente" />
+    <br />
+            <asp:Button ID="btnSiguiente" CssClass="btn btn-primary mt-3" runat="server" OnClick="btnSiguiente_Click" Text="Siguiente" />
             <br />
             <asp:Label ID="lblMensaje" runat="server" Text=""></asp:Label>
-    <br />
         </div>
 </asp:Content>

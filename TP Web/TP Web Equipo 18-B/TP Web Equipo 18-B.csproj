@@ -96,7 +96,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Exito.aspx" />
     <Content Include="FormularioPaso3.aspx" />
+    <Content Include="Home.aspx" />
+    <Content Include="Imagenes\logo Compu House.png" />
     <Content Include="Listar.aspx">
       <BrowseToURL>~/Listar.aspx</BrowseToURL>
     </Content>
@@ -184,12 +187,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Exito.aspx.cs">
+      <DependentUpon>Exito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Exito.aspx.designer.cs">
+      <DependentUpon>Exito.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FormularioPaso3.aspx.cs">
       <DependentUpon>FormularioPaso3.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="FormularioPaso3.aspx.designer.cs">
       <DependentUpon>FormularioPaso3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Listar.aspx.cs">
       <DependentUpon>Listar.aspx</DependentUpon>

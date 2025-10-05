@@ -15,13 +15,25 @@ namespace TP_Web_Equipo_18_B
         protected void Page_Load(object sender, EventArgs e)
         {
             //Fran aca estan los codigos de las secciones anteriores
-            string idArticulo = Request.QueryString["id"];
-            string codVoucher = Request.QueryString["voucher"];
+            //  string idArticulo = Request.QueryString["id"];
+            //  string codVoucher = Request.QueryString["voucher"];
+          
 
         }
 
         protected void btnParticipar_Click(object sender, EventArgs e)
         {
+            VoucherNegocio cupon = new VoucherNegocio();
+            Voucher voucher = new Voucher();
+            if(Request.QueryString["id"] != null && Request.QueryString["voucher"] != null){
+                voucher.IDArticulo = Convert.ToInt32(Request.QueryString["id"]);
+                voucher.CodigoVoucher = Request.QueryString["voucher"];
+               
+            }
+            voucher.FechaCanje = DateTime.Now;
+                       
+
+            int id_de_cliente;
             Cliente cliente = new Cliente();
             ClienteNegocio negocio = new ClienteNegocio();
             try
@@ -46,16 +58,19 @@ namespace TP_Web_Equipo_18_B
                     cliente.Ciudad = txtCiudad.Text;
                     cliente.codPostal = int.Parse(txtCP.Text);
 
-                    negocio.AgregarCliente(cliente);
+                    if (!negocio.ClienteRegistrado(cliente.Documento)) { 
+                        negocio.AgregarCliente(cliente);
                 }
-                    
+
+                   id_de_cliente = negocio.ExisteCliente(cliente.Documento).Id;
+                    voucher.IDCliente = id_de_cliente;
+                   cupon.CanjearVoucher(voucher);
+                    Response.Redirect("Exito.aspx");
+                }
             }
-
-
-
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
