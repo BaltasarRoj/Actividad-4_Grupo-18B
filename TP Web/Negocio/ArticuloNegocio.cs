@@ -125,7 +125,7 @@ namespace Negocio
             }
         }
 
-        public void modificarArticulo(Articulo articulo, string urlVieja, string urlNueva)
+        public void modificar(Articulo articulo, string urlVieja, string urlNueva)
         {
             AccesoDatos datos = new AccesoDatos();
 
@@ -278,6 +278,6 @@ namespace Negocio
             }
         }
 
-
+        
     }
 }
